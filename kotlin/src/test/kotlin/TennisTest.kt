@@ -19,4 +19,20 @@ class TennisTest {
         game.wonPoint("player2")
         Assert.assertEquals("Fifteen-All", game.getScore())
     }
+
+    @Test
+    fun `no one score`() {
+        val game = TennisGame1("player1", "player2")
+        Assert.assertEquals("Love-All", game.getScore())
+    }
+
+    @Test
+    fun `same point thirty-all`() {
+        val game = TennisGame1("player1", "player2")
+        game.wonPoint("player1")
+        game.wonPoint("player1")
+        game.wonPoint("player2")
+        game.wonPoint("player2")
+        Assert.assertEquals("Thirty-All", game.getScore())
+    }
 }
