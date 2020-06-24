@@ -16,4 +16,45 @@ class TennisGame1Test {
 
         assertEquals("Fifteen-Love", tennisGame.getScore())
     }
+
+    @Test
+    fun `The player 1 is in Advantage`() {
+        val tennisGame = TennisGame1("player1", "B")
+        tennisGame.wonPoint("player1")
+        tennisGame.wonPoint("player1")
+        tennisGame.wonPoint("player1")
+
+        tennisGame.wonPoint("B")
+        tennisGame.wonPoint("B")
+        tennisGame.wonPoint("B")
+
+        //Player 1 Advantage
+        tennisGame.wonPoint("player1")
+
+        assertEquals("Advantage player1", tennisGame.getScore())
+    }
+
+    @Test
+    fun `The player 1 wins`() {
+        val tennisGame = TennisGame1("player1", "B")
+
+        tennisGame.wonPoint("player1")
+        tennisGame.wonPoint("player1")
+        tennisGame.wonPoint("player1")
+        tennisGame.wonPoint("player1")
+
+        assertEquals("Win for player1", tennisGame.getScore())
+    }
+
+    @Test
+    fun `The player 2 wins`() {
+        val tennisGame = TennisGame1("player1", "B")
+
+        tennisGame.wonPoint("B")
+        tennisGame.wonPoint("B")
+        tennisGame.wonPoint("B")
+        tennisGame.wonPoint("B")
+
+        assertEquals("Win for player2", tennisGame.getScore())
+    }
 }
