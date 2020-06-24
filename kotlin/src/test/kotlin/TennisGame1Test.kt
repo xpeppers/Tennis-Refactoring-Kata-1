@@ -57,4 +57,12 @@ class TennisGame1Test {
 
         assertEquals("Win for player2", tennisGame.getScore())
     }
+
+    @Test
+    fun `Should score player2, when "player1" doesn't make a point`() {
+        val tennisGame = TennisGame1("A", "B")
+        tennisGame.wonPoint("A")
+
+        assertEquals("Love-Fifteen", tennisGame.getScore())
+    }
 }
