@@ -35,4 +35,27 @@ class TennisTest {
         game.wonPoint("player2")
         Assert.assertEquals("Thirty-All", game.getScore())
     }
+    @Test
+    fun `same point deuce`() {
+        val game = TennisGame1("player1", "player2")
+        game.wonPoint("player1")
+        game.wonPoint("player1")
+        game.wonPoint("player2")
+        game.wonPoint("player2")
+        game.wonPoint("player1")
+        game.wonPoint("player2")
+        Assert.assertEquals("Deuce", game.getScore())
+    }
+    @Test
+    fun `same point Advantage player2`() {
+        val game = TennisGame1("player1", "player2")
+        game.wonPoint("player1")
+        game.wonPoint("player1")
+        game.wonPoint("player2")
+        game.wonPoint("player2")
+        game.wonPoint("player1")
+        game.wonPoint("player2")
+        game.wonPoint("player2")
+        Assert.assertEquals("Advantage player2", game.getScore())
+    }
 }
