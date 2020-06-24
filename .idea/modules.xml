@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/java/Java.iml" filepath="$PROJECT_DIR$/java/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kotlin/tennis-kata.iml" filepath="$PROJECT_DIR$/kotlin/tennis-kata.iml" />
     </modules>
   </component>
 </project>
-
