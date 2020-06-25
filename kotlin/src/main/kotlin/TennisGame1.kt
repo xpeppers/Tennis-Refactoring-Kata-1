@@ -4,27 +4,22 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     private var scorePlayer2: Int = 0
 
     override fun wonPoint(playerName: String) {
-        if (playerName === "player1")
+        if (playerName === "player1") {
             scorePlayer1 += 1
-        else
+        } else {
             scorePlayer2 += 1
+        }
     }
 
     override fun getScore(): String {
         return when {
-            playersHaveSameScore() -> {
-                scoreOnTie(scorePlayer1)
-            }
-
-            scorePlayer1 >= 4 || scorePlayer2 >= 4 -> {
-                scoreForVictory(scorePlayer1 - scorePlayer2)
-            }
-
-            else -> {
-                scoreName(scorePlayer1) + "-" + scoreName(scorePlayer2)
-            }
+            playersHaveSameScore() -> scoreOnTie(scorePlayer1)
+            aPlayerHasMoreThanFourPoints() -> scoreForVictory(scorePlayer1 - scorePlayer2)
+            else -> "${scoreName(scorePlayer1)}-${scoreName(scorePlayer2)}"
         }
     }
+
+    private fun aPlayerHasMoreThanFourPoints() = scorePlayer1 >= 4 || scorePlayer2 >= 4
 
     private fun playersHaveSameScore() = scorePlayer1 == scorePlayer2
 }
@@ -50,9 +45,9 @@ private fun scoreForVictory(differenceBetweenScores: Int): String {
 
 private fun scoreOnTie(score: Int): String {
     return when (score) {
-        0 -> "Love-All"
-        1 -> "Fifteen-All"
-        2 -> "Thirty-All"
+        0 -> "${scoreName(score)}-All"
+        1 -> "${scoreName(score)}-All"
+        2 -> "${scoreName(score)}-All"
         else -> "Deuce"
     }
 }
