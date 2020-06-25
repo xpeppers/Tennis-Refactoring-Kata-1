@@ -10,26 +10,40 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             m_score2 += 1
     }
 
+    fun scores_are_equals() : String
+    {
+        var score = "";
+        when (m_score1) {
+            0 -> score = "Love-All"
+            1 -> score = "Fifteen-All"
+            2 -> score = "Thirty-All"
+            else -> score = "Deuce"
+        }
+        return score;
+    }
+
+    fun advantage() : String
+    {
+        var score = "";
+        val minusResult = m_score1 - m_score2
+        if (minusResult == 1)
+            score = "Advantage player1"
+        else if (minusResult == -1)
+            score = "Advantage player2"
+        else if (minusResult >= 2)
+            score = "Win for player1"
+        else
+            score = "Win for player2"
+        return score;
+    }
+
     override fun getScore(): String {
         var score = ""
         var tempScore = 0
         if (m_score1 == m_score2) {
-            when (m_score1) {
-                0 -> score = "Love-All"
-                1 -> score = "Fifteen-All"
-                2 -> score = "Thirty-All"
-                else -> score = "Deuce"
-            }
+            return scores_are_equals()
         } else if (m_score1 >= 4 || m_score2 >= 4) {
-            val minusResult = m_score1 - m_score2
-            if (minusResult == 1)
-                score = "Advantage player1"
-            else if (minusResult == -1)
-                score = "Advantage player2"
-            else if (minusResult >= 2)
-                score = "Win for player1"
-            else
-                score = "Win for player2"
+            return advantage()
         } else {
             for (i in 1..2) {
                 if (i == 1)
