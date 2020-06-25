@@ -32,29 +32,25 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     }
 
     override fun getScore(): String {
-        var score = ""
-        var tempScore = 0
         if (sameScore()) {
             return scores_are_equals()
         } else if (isAdvantage()) {
             return advantage()
         } else {
-            for (i in 1..2) {
-                if (i == 1)
-                    tempScore = m_score1
-                else {
-                    score += "-"
-                    tempScore = m_score2
-                }
-                when (tempScore) {
-                    0 -> score += "Love"
-                    1 -> score += "Fifteen"
-                    2 -> score += "Thirty"
-                    3 -> score += "Forty"
-                }
-            }
+            val player1Score = getScoreName(m_score1)
+            val player2Score = getScoreName(m_score2)
+            return player1Score + "-" + player2Score
         }
-        return score
+    }
+
+    private fun getScoreName(score: Int): String {
+        return when (score) {
+            0 -> "Love"
+            1 -> "Fifteen"
+            2 -> "Thirty"
+            3 -> "Forty"
+            else -> ""
+        }
     }
 
     private val advantageScore = 4
