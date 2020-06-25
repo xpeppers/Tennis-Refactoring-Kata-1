@@ -12,24 +12,26 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun scores_are_equals() : String
     {
-        if( m_score1 < 3 )
-        {
-            return getScoreName(m_score1) + "-All"
-        }
-        else
+        if( m_score1 >= 3 )
         {
             return "Deuce"
         }
+        return getScoreName(m_score1) + "-All"
     }
 
     private fun advantage() : String
     {
-        val minusResult = m_score1 - m_score2
-        return when {
-            minusResult == 1 -> "Advantage player1"
-            minusResult == -1 -> "Advantage player2"
-            minusResult >= 2 -> "Win for player1"
-            else -> "Win for player2"
+        val minusResult = m_score1 > m_score2
+        if (m_score1 > m_score2) {
+            if (m_score1 - m_score2 > 1) {
+                return "Win for player1"
+            }
+            else return "Advantage player1"
+        }
+        else {
+            if (m_score2 - m_score1 > 1) {
+                return "Win for player2"
+            } else return "Advantage player2"
         }
     }
 
