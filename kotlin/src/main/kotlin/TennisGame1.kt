@@ -10,39 +10,33 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             m_score2 += 1
     }
 
-    fun scores_are_equals() : String
+    private fun scores_are_equals() : String
     {
-        var score = "";
-        when (m_score1) {
-            0 -> score = "Love-All"
-            1 -> score = "Fifteen-All"
-            2 -> score = "Thirty-All"
-            else -> score = "Deuce"
+        return when (m_score1) {
+            0 -> "Love-All"
+            1 -> "Fifteen-All"
+            2 -> "Thirty-All"
+            else -> "Deuce"
         }
-        return score;
     }
 
-    fun advantage() : String
+    private fun advantage() : String
     {
-        var score = "";
         val minusResult = m_score1 - m_score2
-        if (minusResult == 1)
-            score = "Advantage player1"
-        else if (minusResult == -1)
-            score = "Advantage player2"
-        else if (minusResult >= 2)
-            score = "Win for player1"
-        else
-            score = "Win for player2"
-        return score;
+        return when {
+            minusResult == 1 -> "Advantage player1"
+            minusResult == -1 -> "Advantage player2"
+            minusResult >= 2 -> "Win for player1"
+            else -> "Win for player2"
+        }
     }
 
     override fun getScore(): String {
         var score = ""
         var tempScore = 0
-        if (m_score1 == m_score2) {
+        if (sameScore()) {
             return scores_are_equals()
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
+        } else if (isAdvantage()) {
             return advantage()
         } else {
             for (i in 1..2) {
@@ -62,4 +56,11 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
         return score
     }
+
+    private val advantageScore = 4
+    private fun isAdvantage(): Boolean {
+        return m_score1 >= advantageScore || m_score2 >= advantageScore
+    }
+
+    private fun sameScore() = m_score1 == m_score2
 }
