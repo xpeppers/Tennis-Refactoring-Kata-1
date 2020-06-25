@@ -12,11 +12,13 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun scores_are_equals() : String
     {
-        return when (m_score1) {
-            0 -> "Love-All"
-            1 -> "Fifteen-All"
-            2 -> "Thirty-All"
-            else -> "Deuce"
+        if( m_score1 < 3 )
+        {
+            return getScoreName(m_score1) + "-All"
+        }
+        else
+        {
+            return "Deuce"
         }
     }
 
@@ -32,14 +34,14 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     }
 
     override fun getScore(): String {
-        if (sameScore()) {
-            return scores_are_equals()
-        } else if (isAdvantage()) {
-            return advantage()
-        } else {
-            val player1Score = getScoreName(m_score1)
-            val player2Score = getScoreName(m_score2)
-            return player1Score + "-" + player2Score
+        return when {
+            sameScore() -> scores_are_equals()
+            isAdvantage() -> advantage()
+            else -> {
+                val player1Score = getScoreName(m_score1)
+                val player2Score = getScoreName(m_score2)
+                return "$player1Score-$player2Score"
+            }
         }
     }
 
