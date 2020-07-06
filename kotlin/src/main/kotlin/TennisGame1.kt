@@ -14,6 +14,9 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         if (isDraw()) {
             return scoreForDraw()
         }
+        if (isDeuce()) {
+            return scoreForDeuce()
+        }
         if (isAdvantage()) {
             return scoreForAdvantage()
         }
@@ -21,8 +24,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             return scoreForWinning()
         }
 
-        return scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
+        return scoreForNormal()
     }
+
+    private fun scoreForNormal() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
 
     private fun scoreForPlayer(points: Int): String {
         return when (points) {
@@ -52,14 +57,24 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             "Advantage player2"
     }
 
-    private fun pointsGap(): Int {
-        val pointsGap = player1Points - player2Points
-        return pointsGap
-    }
+    private fun pointsGap(): Int = player1Points - player2Points
 
-    private fun isDraw() = player1Points == player2Points
+    private fun isDraw() = (player1Points == player2Points) && player2Points < 3
+
+    private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
 
     private fun scoreForDraw(): String {
+        var score = ""
+        when (player1Points) {
+            0 -> score = "Love-All"
+            1 -> score = "Fifteen-All"
+            2 -> score = "Thirty-All"
+            else -> score = "Deuce"
+        }
+        return score
+    }
+
+    private fun scoreForDeuce(): String {
         var score = ""
         when (player1Points) {
             0 -> score = "Love-All"
