@@ -20,7 +20,9 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
                 2 -> score = "Thirty-All"
                 else -> score = "Deuce"
             }
-        } else if (m_score1 >= 4 || m_score2 >= 4) {
+            return score
+        }
+        if (m_score1 >= 4 || m_score2 >= 4) {
             val minusResult = m_score1 - m_score2
             if (minusResult == 1)
                 score = "Advantage player1"
