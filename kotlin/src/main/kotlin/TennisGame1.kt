@@ -14,20 +14,13 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         if (isDraw()) {
             return scoreForDraw()
         }
-        val pointsGap = m_score1 - m_score2
         if (m_score1 >= 4 || m_score2 >= 4) {
-            if (pointsGap == 1 || pointsGap == -1) {
-                return if (pointsGap == 1)
-                    "Advantage player1"
-                else
-                    "Advantage player2"
+            if (pointsGap() == 1 || pointsGap() == -1) {
+                return scoreForAdvantage()
             }
         }
         if (m_score1 >= 4 || m_score2 >= 4) {
-            return if (pointsGap >= 2)
-                 "Win for player1"
-            else
-                 "Win for player2"
+            return scoreForWinning()
         }
 
         var score = ""
@@ -47,6 +40,25 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             }
         }
         return score
+    }
+
+    private fun scoreForWinning(): String {
+        return if (pointsGap() >= 2)
+            "Win for player1"
+        else
+            "Win for player2"
+    }
+
+    private fun scoreForAdvantage(): String {
+        return if (pointsGap() == 1)
+            "Advantage player1"
+        else
+            "Advantage player2"
+    }
+
+    private fun pointsGap(): Int {
+        val pointsGap = m_score1 - m_score2
+        return pointsGap
     }
 
     private fun isDraw() = m_score1 == m_score2
