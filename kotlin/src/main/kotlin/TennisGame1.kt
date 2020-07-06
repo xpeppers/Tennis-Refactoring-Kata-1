@@ -27,8 +27,12 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         return Normal(player1Points, player2Points).score()
     }
 
-    class Normal(private val player1Points: Int, private val player2Points: Int) {
-        fun score() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
+    interface GameState {
+        fun score(): String
+    }
+
+    class Normal(private val player1Points: Int, private val player2Points: Int) : GameState {
+        override fun score() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
 
         private fun scoreForPlayer(points: Int): String {
             return when (points) {
@@ -41,8 +45,8 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
     }
 
-    class Winning(private val player1Points: Int, private val player2Points: Int) {
-        fun score(): String {
+    class Winning(private val player1Points: Int, private val player2Points: Int) : GameState {
+        override fun score(): String {
             return if (pointsGap() >= 2)
                 "Win for player1"
             else
@@ -52,8 +56,8 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         private fun pointsGap(): Int = player1Points - player2Points
     }
 
-    class Advantage(private val player1Points: Int, private val player2Points: Int) {
-        fun score(): String {
+    class Advantage(private val player1Points: Int, private val player2Points: Int) : GameState {
+        override fun score(): String {
             return if (pointsGap() == 1)
                 "Advantage player1"
             else
@@ -63,12 +67,12 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         private fun pointsGap(): Int = player1Points - player2Points
     }
 
-    class Deuce {
-        fun score(): String = "Deuce"
+    class Deuce : GameState {
+        override fun score(): String = "Deuce"
     }
 
-    class Draw(private val player1Points: Int) {
-        fun score(): String = when (player1Points) {
+    class Draw(private val player1Points: Int) : GameState {
+        override fun score(): String = when (player1Points) {
             0 -> "Love-All"
             1 -> "Fifteen-All"
             2 -> "Thirty-All"
