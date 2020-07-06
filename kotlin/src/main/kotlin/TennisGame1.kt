@@ -18,13 +18,24 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             return Deuce().score()
         }
         if (isAdvantage()) {
-            return scoreForAdvantage()
+            return Advantage(player1Points, player2Points).score()
         }
         if (isWinning()) {
             return scoreForWinning()
         }
 
         return scoreForNormal()
+    }
+
+    class Advantage(private val player1Points: Int, private val player2Points: Int) {
+        fun score(): String {
+            return if (pointsGap() == 1)
+                "Advantage player1"
+            else
+                "Advantage player2"
+        }
+
+        private fun pointsGap(): Int = player1Points - player2Points
     }
 
     class Deuce {
