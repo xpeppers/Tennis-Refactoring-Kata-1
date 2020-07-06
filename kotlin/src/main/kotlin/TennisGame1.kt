@@ -24,7 +24,21 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             return Winning(player1Points, player2Points).score()
         }
 
-        return scoreForNormal()
+        return Normal(player1Points, player2Points).score()
+    }
+
+    class Normal(private val player1Points: Int, private val player2Points: Int) {
+        fun score() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
+
+        private fun scoreForPlayer(points: Int): String {
+            return when (points) {
+                0 -> "Love"
+                1 -> "Fifteen"
+                2 -> "Thirty"
+                3 -> "Forty"
+                else -> ""
+            }
+        }
     }
 
     class Winning(private val player1Points: Int, private val player2Points: Int) {
@@ -58,18 +72,6 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             0 -> "Love-All"
             1 -> "Fifteen-All"
             2 -> "Thirty-All"
-            else -> ""
-        }
-    }
-
-    private fun scoreForNormal() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
-
-    private fun scoreForPlayer(points: Int): String {
-        return when (points) {
-            0 -> "Love"
-            1 -> "Fifteen"
-            2 -> "Thirty"
-            3 -> "Forty"
             else -> ""
         }
     }
