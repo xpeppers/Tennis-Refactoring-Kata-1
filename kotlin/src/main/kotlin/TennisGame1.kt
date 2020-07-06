@@ -16,16 +16,18 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
         val pointsGap = m_score1 - m_score2
         if (m_score1 >= 4 || m_score2 >= 4) {
-            var score = ""
-            if (pointsGap == 1)
-                score = "Advantage player1"
-            else if (pointsGap == -1)
-                score = "Advantage player2"
-            else if (pointsGap >= 2)
-                score = "Win for player1"
+            if (pointsGap == 1 || pointsGap == -1) {
+                return if (pointsGap == 1)
+                    "Advantage player1"
+                else
+                    "Advantage player2"
+            }
+        }
+        if (m_score1 >= 4 || m_score2 >= 4) {
+            return if (pointsGap >= 2)
+                 "Win for player1"
             else
-                score = "Win for player2"
-            return score
+                 "Win for player2"
         }
 
         var score = ""
