@@ -12,7 +12,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     override fun getScore(): String {
         if (isDraw()) {
-            return scoreForDraw()
+            return Draw(player1Points).score()
         }
         if (isDeuce()) {
             return scoreForDeuce()
@@ -25,6 +25,16 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
 
         return scoreForNormal()
+    }
+
+    class Draw(private val player1Points: Int) {
+        fun score(): String = when (player1Points) {
+            0 -> "Love-All"
+            1 -> "Fifteen-All"
+            2 -> "Thirty-All"
+            else -> ""
+        }
+
     }
 
     private fun scoreForNormal() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
@@ -62,13 +72,6 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     private fun isDraw() = (player1Points == player2Points) && player2Points < 3
 
     private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
-
-    private fun scoreForDraw(): String = when (player1Points) {
-        0 -> "Love-All"
-        1 -> "Fifteen-All"
-        2 -> "Thirty-All"
-        else -> ""
-    }
 
     private fun scoreForDeuce(): String = "Deuce"
 }
