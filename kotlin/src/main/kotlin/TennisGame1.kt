@@ -80,13 +80,6 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun isAdvantage() = (player1Points >= 4 || player2Points >= 4) && (pointsGap() == 1 || pointsGap() == -1)
 
-    private fun scoreForAdvantage(): String {
-        return if (pointsGap() == 1)
-            "Advantage player1"
-        else
-            "Advantage player2"
-    }
-
     private fun pointsGap(): Int = player1Points - player2Points
 
     private fun isDraw() = (player1Points == player2Points) && player2Points < 3
