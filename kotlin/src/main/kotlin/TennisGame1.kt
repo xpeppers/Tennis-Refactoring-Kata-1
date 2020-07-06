@@ -63,25 +63,12 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
 
-    private fun scoreForDraw(): String {
-        var score = ""
-        when (player1Points) {
-            0 -> score = "Love-All"
-            1 -> score = "Fifteen-All"
-            2 -> score = "Thirty-All"
-            else -> score = "Deuce"
-        }
-        return score
+    private fun scoreForDraw(): String = when (player1Points) {
+        0 -> "Love-All"
+        1 -> "Fifteen-All"
+        2 -> "Thirty-All"
+        else -> ""
     }
 
-    private fun scoreForDeuce(): String {
-        var score = ""
-        when (player1Points) {
-            0 -> score = "Love-All"
-            1 -> score = "Fifteen-All"
-            2 -> score = "Thirty-All"
-            else -> score = "Deuce"
-        }
-        return score
-    }
+    private fun scoreForDeuce(): String = "Deuce"
 }
