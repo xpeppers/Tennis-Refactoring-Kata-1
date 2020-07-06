@@ -15,7 +15,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             return Draw(player1Points).score()
         }
         if (isDeuce()) {
-            return scoreForDeuce()
+            return Deuce().score()
         }
         if (isAdvantage()) {
             return scoreForAdvantage()
@@ -27,6 +27,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         return scoreForNormal()
     }
 
+    class Deuce {
+        fun score(): String = "Deuce"
+    }
+
     class Draw(private val player1Points: Int) {
         fun score(): String = when (player1Points) {
             0 -> "Love-All"
@@ -34,7 +38,6 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             2 -> "Thirty-All"
             else -> ""
         }
-
     }
 
     private fun scoreForNormal() = scoreForPlayer(player1Points) + "-" + scoreForPlayer(player2Points)
@@ -73,5 +76,4 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
 
-    private fun scoreForDeuce(): String = "Deuce"
 }
