@@ -11,11 +11,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     }
 
     override fun getScore(): String {
-        var score = ""
-        var tempScore = 0
         if (isDraw()) {
             return scoreForDraw()
         }
+        var score = ""
         if (m_score1 >= 4 || m_score2 >= 4) {
             val minusResult = m_score1 - m_score2
             if (minusResult == 1)
@@ -27,6 +26,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             else
                 score = "Win for player2"
         } else {
+            var tempScore = 0
             for (i in 1..2) {
                 if (i == 1)
                     tempScore = m_score1
