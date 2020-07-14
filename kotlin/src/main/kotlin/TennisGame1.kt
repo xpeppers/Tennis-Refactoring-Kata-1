@@ -26,14 +26,14 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             else
                 player2Points += 1
 
-            gameState = nextGameState()
+            gameState = nextGameState(playerName)
             return if (isWinning())
                 Winning(player1Points, player2Points)
             else
                 this
         }
 
-        private fun nextGameState(): GameState {
+        private fun nextGameState(playerName: String): GameState {
             var nextGameState: GameState = Normal(player1Points, player2Points)
             if (isDraw()) {
                 nextGameState = Draw(player1Points)
@@ -42,7 +42,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
                 nextGameState = Deuce()
             }
             if (isAdvantage()) {
-                nextGameState = Advantage(player1Points, player2Points)
+                nextGameState = Advantage(playerName)
             }
             if (isWinning()) {
                 nextGameState = Winning(player1Points, player2Points)
@@ -94,15 +94,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         private fun pointsGap(): Int = player1Points - player2Points
     }
 
-    class Advantage(private val player1Points: Int, private val player2Points: Int) : GameState {
+    class Advantage(private val playerInAdvantage: String) : GameState {
         override fun score(): String {
-            return if (pointsGap() == 1)
-                "Advantage player1"
-            else
-                "Advantage player2"
+            return "Advantage $playerInAdvantage"
         }
-
-        private fun pointsGap(): Int = player1Points - player2Points
     }
 
     class Deuce : GameState {
