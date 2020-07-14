@@ -1,41 +1,64 @@
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
-    private var player1Points: Int = 0
-    private var player2Points: Int = 0
-    private var gameState: GameState = Draw()
+    private var gameState: GameState = BigGameState()
 
     override fun wonPoint(playerName: String) {
-        if (playerName === "player1")
-            player1Points += 1
-        else
-            player2Points += 1
-
-        gameState = nextGameState()
+        gameState.wonPoint(playerName)
     }
 
     override fun getScore(): String {
         return gameState.score()
     }
 
-    private fun nextGameState(): GameState {
-        var nextGameState: GameState = Normal(player1Points, player2Points)
-        if (isDraw()) {
-            nextGameState = Draw(player1Points)
-        }
-        if (isDeuce()) {
-            nextGameState = Deuce()
-        }
-        if (isAdvantage()) {
-            nextGameState = Advantage(player1Points, player2Points)
-        }
-        if (isWinning()) {
-            nextGameState = Winning(player1Points, player2Points)
-        }
-        return nextGameState
-    }
-
     interface GameState {
         fun score(): String
+        fun wonPoint(playerName: String) {}
+    }
+
+    class BigGameState: GameState {
+        private var player1Points: Int = 0
+        private var player2Points: Int = 0
+        private var gameState: GameState = Draw()
+
+        override fun wonPoint(playerName: String) {
+            if (playerName === "player1")
+                player1Points += 1
+            else
+                player2Points += 1
+
+            gameState = nextGameState()
+        }
+
+        private fun nextGameState(): GameState {
+            var nextGameState: GameState = Normal(player1Points, player2Points)
+            if (isDraw()) {
+                nextGameState = Draw(player1Points)
+            }
+            if (isDeuce()) {
+                nextGameState = Deuce()
+            }
+            if (isAdvantage()) {
+                nextGameState = Advantage(player1Points, player2Points)
+            }
+            if (isWinning()) {
+                nextGameState = Winning(player1Points, player2Points)
+            }
+            return nextGameState
+        }
+
+        override fun score(): String {
+            return gameState.score()
+        }
+
+        private fun isWinning() = (player1Points >= 4 || player2Points >= 4) && (pointsGap() >= 2 || pointsGap() <= -2)
+
+        private fun isAdvantage() = (player1Points >= 4 || player2Points >= 4) && (pointsGap() == 1 || pointsGap() == -1)
+
+        private fun pointsGap(): Int = player1Points - player2Points
+
+        private fun isDraw() = (player1Points == player2Points) && player2Points < 3
+
+        private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
     }
 
     class Normal(private val player1Points: Int, private val player2Points: Int) : GameState {
@@ -86,15 +109,5 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             else -> ""
         }
     }
-
-    private fun isWinning() = (player1Points >= 4 || player2Points >= 4) && (pointsGap() >= 2 || pointsGap() <= -2)
-
-    private fun isAdvantage() = (player1Points >= 4 || player2Points >= 4) && (pointsGap() == 1 || pointsGap() == -1)
-
-    private fun pointsGap(): Int = player1Points - player2Points
-
-    private fun isDraw() = (player1Points == player2Points) && player2Points < 3
-
-    private fun isDeuce() = (player1Points == player2Points) && player2Points >= 3
 
 }
