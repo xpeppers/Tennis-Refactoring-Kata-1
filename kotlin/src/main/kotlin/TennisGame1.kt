@@ -12,21 +12,20 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     interface GameState {
         fun score(): String
-        fun wonPoint(playerName: String) {}
+        fun wonPoint(playerName: String): GameState { TODO() }
     }
 
-    class BigGameState: GameState {
-        private var player1Points: Int = 0
-        private var player2Points: Int = 0
+    class BigGameState(private var player1Points: Int = 0, private var player2Points: Int = 0) : GameState {
         private var gameState: GameState = Draw()
 
-        override fun wonPoint(playerName: String) {
+        override fun wonPoint(playerName: String): GameState {
             if (playerName === "player1")
                 player1Points += 1
             else
                 player2Points += 1
 
             gameState = nextGameState()
+            return this
         }
 
         private fun nextGameState(): GameState {
@@ -108,6 +107,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             2 -> "Thirty-All"
             else -> ""
         }
+
     }
 
 }
