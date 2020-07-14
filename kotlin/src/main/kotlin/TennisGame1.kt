@@ -29,6 +29,8 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             gameState = nextGameState(playerName)
             return if (isWinning())
                 Winning(playerName)
+            else if (isDeuce())
+                Deuce()
             else
                 this
         }
@@ -91,12 +93,23 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     class Advantage(private val playerInAdvantage: String) : GameState {
 
+        override fun wonPoint(playerName: String): GameState {
+            return if (playerName == playerInAdvantage)
+                Winning(playerName)
+            else
+                Deuce()
+        }
+
         override fun score(): String {
             return "Advantage $playerInAdvantage"
         }
     }
 
     class Deuce : GameState {
+        override fun wonPoint(playerName: String): GameState {
+            return Advantage(playerName)
+        }
+
         override fun score(): String = "Deuce"
     }
 
