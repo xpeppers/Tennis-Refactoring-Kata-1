@@ -28,7 +28,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
             gameState = nextGameState(playerName)
             return if (isWinning())
-                Winning(player1Points, player2Points)
+                Winning(playerName)
             else
                 this
         }
@@ -45,7 +45,7 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
                 nextGameState = Advantage(playerName)
             }
             if (isWinning()) {
-                nextGameState = Winning(player1Points, player2Points)
+                nextGameState = Winning(playerName)
             }
             return nextGameState
         }
@@ -79,22 +79,18 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
     }
 
-    class Winning(private val player1Points: Int, private val player2Points: Int) : GameState {
+    class Winning(private val winningPlayer: String) : GameState {
         override fun wonPoint(playerName: String): GameState {
             return this
         }
 
         override fun score(): String {
-            return if (pointsGap() >= 2)
-                "Win for player1"
-            else
-                "Win for player2"
+            return "Win for $winningPlayer"
         }
-
-        private fun pointsGap(): Int = player1Points - player2Points
     }
 
     class Advantage(private val playerInAdvantage: String) : GameState {
+
         override fun score(): String {
             return "Advantage $playerInAdvantage"
         }
