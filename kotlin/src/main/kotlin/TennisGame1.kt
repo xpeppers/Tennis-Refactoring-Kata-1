@@ -12,7 +12,9 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     interface GameState {
         fun score(): String
-        fun wonPoint(playerName: String): GameState { TODO() }
+        fun wonPoint(playerName: String): GameState {
+            TODO()
+        }
     }
 
     class BigGameState(private var player1Points: Int = 0, private var player2Points: Int = 0) : GameState {
@@ -25,7 +27,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
                 player2Points += 1
 
             gameState = nextGameState()
-            return this
+            return if (isWinning())
+                Winning(player1Points, player2Points)
+            else
+                this
         }
 
         private fun nextGameState(): GameState {
@@ -75,6 +80,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     }
 
     class Winning(private val player1Points: Int, private val player2Points: Int) : GameState {
+        override fun wonPoint(playerName: String): GameState {
+            return this
+        }
+
         override fun score(): String {
             return if (pointsGap() >= 2)
                 "Win for player1"
