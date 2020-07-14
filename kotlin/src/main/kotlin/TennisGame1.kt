@@ -102,14 +102,20 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         override fun score(): String = "Deuce"
     }
 
-    class Draw(private val player1Points: Int = 0) : GameState {
-        override fun score(): String = when (player1Points) {
+    class Draw(private val bothPlayerPoints: Int = 0) : GameState {
+        override fun wonPoint(playerName: String): GameState {
+            return if (playerName == "player1")
+                Normal(bothPlayerPoints + 1, bothPlayerPoints)
+            else
+                Normal(bothPlayerPoints, bothPlayerPoints + 1)
+        }
+
+        override fun score(): String = when (bothPlayerPoints) {
             0 -> "Love-All"
             1 -> "Fifteen-All"
             2 -> "Thirty-All"
             else -> ""
         }
-
     }
 
 }
