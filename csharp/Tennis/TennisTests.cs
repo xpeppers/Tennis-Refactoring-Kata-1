@@ -8,6 +8,8 @@ namespace Tennis
 		private readonly string player1 = "player1";
 		private readonly string player2 = "player2";
 
+		private readonly string player1Winner = "Win for player1";
+
 		[Test]
 		public void TestBasic()
 		{
@@ -121,21 +123,8 @@ namespace Tennis
 		[Test]
 		public void TestWinsBoth()
 		{
-			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
-			tennisGame1.WonPoint(this.player1);
-			tennisGame1.WonPoint(this.player2);
+			TennisGame1 tennisGame1 = CreateGameScore(this.player1, this.player2, 6, 4);
 
-			tennisGame1.WonPoint(this.player1);
-			tennisGame1.WonPoint(this.player2);
-
-			tennisGame1.WonPoint(this.player1);
-			tennisGame1.WonPoint(this.player2);
-
-			tennisGame1.WonPoint(this.player1);
-			tennisGame1.WonPoint(this.player2);
-
-			tennisGame1.WonPoint(this.player1);
-			tennisGame1.WonPoint(this.player1);
 			Assert.AreEqual("Win for player1", tennisGame1.GetScore());
 
 			tennisGame1.WonPoint(this.player2);
@@ -143,6 +132,19 @@ namespace Tennis
 			tennisGame1.WonPoint(this.player2);
 			tennisGame1.WonPoint(this.player2);
 			Assert.AreEqual("Win for player2", tennisGame1.GetScore());
+		}
+
+		private TennisGame1 CreateGameScore(string player1, string player2, int firstPoint, int secondPoint)
+		{
+			// global
+			TennisGame1 tennisGame1 = new TennisGame1(player1, player2);
+			
+			for (int i = 0; i < firstPoint; i++)
+				tennisGame1.WonPoint(this.player1);
+			for (int i = 0; i < secondPoint; i++)
+				tennisGame1.WonPoint(this.player2);
+
+			return tennisGame1;
 		}
 	}
 }
