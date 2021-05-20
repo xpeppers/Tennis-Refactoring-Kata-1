@@ -15,6 +15,20 @@ namespace Tennis
           
         }
 
+        [Test]
+        public void Won_40_0()
+        {
+            string player1 = "player1";
+
+            TennisGame1 tennisGame = new TennisGame1("A", "B");
+            tennisGame.WonPoint(player1);
+            tennisGame.WonPoint(player1);
+            tennisGame.WonPoint(player1);
+            tennisGame.WonPoint(player1);
+
+            Assert.AreEqual("Win for player1", tennisGame.GetScore());
+
+        }
     }
 }
 
