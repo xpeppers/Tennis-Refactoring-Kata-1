@@ -50,13 +50,7 @@ namespace Tennis
             string player1 = "player1";
             string player2 = "player2";
 
-            TennisGame1 tennisGame = new TennisGame1("A", "B");
-            tennisGame.WonPoint(player1);
-            tennisGame.WonPoint(player2);   // 15-15
-            tennisGame.WonPoint(player1);
-            tennisGame.WonPoint(player2);   // 30-30
-            tennisGame.WonPoint(player1);
-            tennisGame.WonPoint(player2);   // 40-40
+            TennisGame1 tennisGame = DoDeuce(player1, player2);
             tennisGame.WonPoint(player1);
 
             Assert.AreEqual("Advantage player1", tennisGame.GetScore());
@@ -68,6 +62,25 @@ namespace Tennis
             string player1 = "player1";
             string player2 = "player2";
 
+            TennisGame1 tennisGame = DoDeuce(player1, player2);
+
+            Assert.AreEqual("Deuce", tennisGame.GetScore());
+        }
+
+        [Test]
+        public void AdvantagePlayer2()
+        {
+            string player1 = "player1";
+            string player2 = "player2";
+
+            TennisGame1 tennisGame = DoDeuce(player1, player2);
+            tennisGame.WonPoint(player2);
+
+            Assert.AreEqual("Advantage player2", tennisGame.GetScore());
+        }
+
+        private static TennisGame1 DoDeuce(string player1, string player2)
+        {
             TennisGame1 tennisGame = new TennisGame1("A", "B");
             tennisGame.WonPoint(player1);
             tennisGame.WonPoint(player2);   // 15-15
@@ -75,9 +88,9 @@ namespace Tennis
             tennisGame.WonPoint(player2);   // 30-30
             tennisGame.WonPoint(player1);
             tennisGame.WonPoint(player2);   // 40-40
-
-            Assert.AreEqual("Deuce", tennisGame.GetScore());
+            return tennisGame;
         }
+
     }
 }
 
