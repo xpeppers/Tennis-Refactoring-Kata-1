@@ -55,6 +55,95 @@ namespace Tennis
 			tennisGame1.WonPoint(this.player1);
 			Assert.AreEqual("Advantage player1", tennisGame1.GetScore());
 		}
+
+		[Test]
+		public void TestAdvantagePlayer2()
+		{
+			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player2);
+			Assert.AreEqual("Advantage player2", tennisGame1.GetScore());
+		}
+
+		[Test]
+		public void TestWinsPlayer1()
+		{
+			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player1);
+			Assert.AreEqual("Win for player1", tennisGame1.GetScore());
+		}
+
+		[Test]
+		public void TestWinsPlayer2()
+		{
+			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player2);
+			tennisGame1.WonPoint(this.player2);
+			Assert.AreEqual("Win for player2", tennisGame1.GetScore());
+		}
+
+		[Test]
+		public void TestWinsBoth()
+		{
+			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player1);
+			Assert.AreEqual("Win for player1", tennisGame1.GetScore());
+
+			tennisGame1.WonPoint(this.player2);
+			tennisGame1.WonPoint(this.player2);
+			tennisGame1.WonPoint(this.player2);
+			tennisGame1.WonPoint(this.player2);
+			Assert.AreEqual("Win for player2", tennisGame1.GetScore());
+		}
 	}
 }
 
