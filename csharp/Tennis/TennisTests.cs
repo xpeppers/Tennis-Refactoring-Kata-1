@@ -36,6 +36,25 @@ namespace Tennis
 
 		}
 
+		[Test]
+		public void TestAdvantage()
+        {
+			TennisGame1 tennisGame1 = new TennisGame1(this.player1, this.player2);
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			tennisGame1.WonPoint(this.player2);
+
+			tennisGame1.WonPoint(this.player1);
+			Assert.AreEqual("Advantage player1", tennisGame1.GetScore());
+		}
 	}
 }
 
