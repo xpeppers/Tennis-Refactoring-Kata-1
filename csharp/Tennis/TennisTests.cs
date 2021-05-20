@@ -7,9 +7,12 @@ namespace Tennis
     public class TennisTests
     {
         [Test]
-        public void TestExample()
+        public void InitialGame_LoveAll()
         {
-            Assert.True(false);
+            TennisGame1 tennisGame = new TennisGame1("A","B");
+
+            Assert.AreEqual("Love-All", tennisGame.GetScore());
+          
         }
 
     }
