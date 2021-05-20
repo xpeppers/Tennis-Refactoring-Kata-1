@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Tennis
 {
@@ -9,10 +10,10 @@ namespace Tennis
         [Test]
         public void InitialGame_LoveAll()
         {
-            TennisGame1 tennisGame = new TennisGame1("A","B");
+            TennisGame1 tennisGame = new TennisGame1("A", "B");
 
             Assert.AreEqual("Love-All", tennisGame.GetScore());
-          
+
         }
 
         [Test]
@@ -77,6 +78,19 @@ namespace Tennis
             tennisGame.WonPoint(player2);
 
             Assert.AreEqual("Advantage player2", tennisGame.GetScore());
+        }
+        
+        [Test]
+        [TestCase("player1,player2", "Fifteen-All")]
+        [TestCase("player1,player2,player1", "Thirty-Fifteen")]
+        public void ParametricTest(string playerPoints, string expectedResult)
+        {
+            string[] players = playerPoints.Split(',');
+
+            TennisGame1 tennisGame1 = new TennisGame1("aa", "bbb");
+
+            players.ToList().ForEach(x => tennisGame1.WonPoint(x));
+            Assert.AreEqual(expectedResult, tennisGame1.GetScore());
         }
 
         private static TennisGame1 DoDeuce(string player1, string player2)
