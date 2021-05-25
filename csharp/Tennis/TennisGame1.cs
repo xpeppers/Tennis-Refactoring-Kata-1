@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tennis
 {
@@ -54,30 +55,29 @@ namespace Tennis
 
         private string GetNormalScore()
         {
-            var score = string.Empty;
-            var tempScore = 0;
-            for (var i = 1; i < 3; i++)
+            return $"{GetSingleScore(player1Score)}-{GetSingleScore(player2Score)}";
+        }
+
+        private string GetSingleScore(int scoreAsValue)
+        {
+            string tempScore= string.Empty;
+            switch (scoreAsValue)
             {
-                if (i == 1) tempScore = player1Score;
-                else { score += "-"; tempScore = player2Score; }
-                switch (tempScore)
-                {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+                case 0:
+                    tempScore = "Love";
+                    break;
+                case 1:
+                    tempScore = "Fifteen";
+                    break;
+                case 2:
+                    tempScore = "Thirty";
+                    break;
+                case 3:
+                    tempScore = "Forty";
+                    break;
             }
 
-            return score;
+            return tempScore;
         }
 
         private static string GetAdvantageScore(int minusResult)
