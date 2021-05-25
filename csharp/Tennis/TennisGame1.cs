@@ -2,8 +2,9 @@ namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
-        private int m_score1 = 0;
-        private int m_score2 = 0;
+        private const string PLAYER1 = "player1";
+        private int player1Score = 0;
+        private int player2Score = 0;
         private string player1Name;
         private string player2Name;
 
@@ -15,30 +16,27 @@ namespace Tennis
 
         public void WonPoint(string playerName)
         {
-            if (playerName == "player1")
-                m_score1 += 1;
+            if (playerName == PLAYER1)
+                player1Score += 1;
             else
-                m_score2 += 1;
+                player2Score += 1;
         }
 
         public string GetScore()
         {
-            string score = "";
-            
-            if (m_score1 == m_score2)
+            if (player1Score == player2Score)
             {
-                score = GetEqualScore();
+                return GetEqualScore();
             }
-            else if (m_score1 >= 4 || m_score2 >= 4)
+            else if (player1Score >= 4 || player2Score >= 4)
             {
-                var minusResult = m_score1 - m_score2;
-                score = GetAdvantageScore(minusResult);
+                var minusResult = player1Score - player2Score;
+                return GetAdvantageScore(minusResult);
             }
             else
             {
-                score = GetNormalScore();
+                return GetNormalScore();
             }
-            return score;
         }
 
         private string GetNormalScore()
@@ -47,8 +45,8 @@ namespace Tennis
             var tempScore = 0;
             for (var i = 1; i < 3; i++)
             {
-                if (i == 1) tempScore = m_score1;
-                else { score += "-"; tempScore = m_score2; }
+                if (i == 1) tempScore = player1Score;
+                else { score += "-"; tempScore = player2Score; }
                 switch (tempScore)
                 {
                     case 0:
@@ -82,7 +80,7 @@ namespace Tennis
         private string GetEqualScore()
         {
             string score;
-            switch (m_score1)
+            switch (player1Score)
             {
                 case 0:
                     score = "Love-All";
