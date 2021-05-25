@@ -23,14 +23,11 @@ namespace Tennis
                 player2_score += 1;
             // TODO: add a new test for this condition
             else
-                throw new Exception("Player doesn't exist");
+                throw new Exception(string.Format("Player '{0}' doesn't exist", playerName));
         }
 
         public string GetScore()
         {
-            string score = "";
-            var tempScore = 0;
-
             if (player1_score == player2_score)
             {
                 return GetEvenScore(player1_score);
@@ -41,27 +38,35 @@ namespace Tennis
                 return GetAdvantageScore();
             }
 
-            for (var i = 1; i < 3; i++)
-            {
-                if (i == 1) tempScore = player1_score;
-                else { score += "-"; tempScore = player2_score; }
-                switch (tempScore)
-                {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
-            }
+            return GetScoreNotEvenBeforeForty();
+        }
 
+        private string GetScoreNotEvenBeforeForty()
+        {
+            return string.Format("{0}-{1}", GetSinglePlayerScore(player1_score), GetSinglePlayerScore(player2_score));
+        }
+
+        private string GetSinglePlayerScore(int playerScore)
+        {
+            string score;
+            switch (playerScore)
+            {
+                case 0:
+                    score = "Love";
+                    break;
+                case 1:
+                    score = "Fifteen";
+                    break;
+                case 2:
+                    score = "Thirty";
+                    break;
+                case 3:
+                    score = "Forty";
+                    break;
+                default:
+                    score = "";
+                    break;
+            }
             return score;
         }
 
@@ -85,9 +90,9 @@ namespace Tennis
 
             string score = scoreDifference switch
             {
-                1 => "Advantage player1",
-                -1 => "Advantage player2",
-                _ => scoreDifference >= 2 ? "Win for player1" : "Win for player2"
+                1 => "Advantage " + player1Name,
+                -1 => "Advantage " + player2Name,
+                _ => scoreDifference >= 2 ? "Win for " + player1Name : "Win for " + player2Name
             };
 
             return score;
