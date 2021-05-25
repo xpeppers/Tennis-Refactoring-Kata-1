@@ -27,11 +27,11 @@ namespace Tennis
 
         public string GetScore()
         {
-            if (player1Score == player2Score)
+            if (IsEqualScore())
             {
                 return GetEqualScore();
             }
-            else if (player1Score >= 4 || player2Score >= 4)
+            else if (IsAdvantages())
             {
                 var minusResult = player1Score - player2Score;
                 return GetAdvantageScore(minusResult);
@@ -40,6 +40,16 @@ namespace Tennis
             {
                 return GetNormalScore();
             }
+        }
+
+        private bool IsAdvantages()
+        {
+            return player1Score >= 4 || player2Score >= 4;
+        }
+
+        private bool IsEqualScore()
+        {
+            return player1Score == player2Score;
         }
 
         private string GetNormalScore()
