@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -6,7 +8,12 @@ namespace Tennis
         private int player1Score = 0;
         private int player2Score = 0;
 
+        [Obsolete]
         public TennisGame1(string player1Name, string player2Name)
+        {
+        }
+
+        public TennisGame1()
         {
         }
 
