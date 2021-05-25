@@ -4,8 +4,8 @@ namespace Tennis
 {
 	class TennisGame1 : ITennisGame
 	{
-		private int m_score1 = 0;
-		private int m_score2 = 0;
+		private int player1_score = 0;
+		private int player2_score = 0;
 		private string player1Name;
 		private string player2Name;
 
@@ -18,9 +18,9 @@ namespace Tennis
 		public void WonPoint(string playerName)
 		{
 			if (playerName.Equals(this.player1Name, StringComparison.CurrentCultureIgnoreCase))
-				m_score1 += 1;
+				player1_score += 1;
 			else if (playerName.Equals(this.player2Name, StringComparison.CurrentCultureIgnoreCase))
-				m_score2 += 1;
+				player2_score += 1;
 			// TODO: add a new test for this condition
 			else
 				throw new Exception("Player doesn't exist");
@@ -30,9 +30,11 @@ namespace Tennis
 		{
 			string score = "";
 			var tempScore = 0;
-			if (m_score1 == m_score2)
+
+
+			if (player1_score == player2_score)
 			{
-				switch (m_score1)
+				switch (player1_score)
 				{
 					case 0:
 						score = "Love-All";
@@ -49,9 +51,9 @@ namespace Tennis
 
 				}
 			}
-			else if (m_score1 >= 4 || m_score2 >= 4)
+			else if (player1_score >= 4 || player2_score >= 4)
 			{
-				var minusResult = m_score1 - m_score2;
+				var minusResult = player1_score - player2_score;
 				if (minusResult == 1) score = "Advantage player1";
 				else if (minusResult == -1) score = "Advantage player2";
 				else if (minusResult >= 2) score = "Win for player1";
@@ -61,8 +63,8 @@ namespace Tennis
 			{
 				for (var i = 1; i < 3; i++)
 				{
-					if (i == 1) tempScore = m_score1;
-					else { score += "-"; tempScore = m_score2; }
+					if (i == 1) tempScore = player1_score;
+					else { score += "-"; tempScore = player2_score; }
 					switch (tempScore)
 					{
 						case 0:
