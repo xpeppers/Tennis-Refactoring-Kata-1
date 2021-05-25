@@ -30,7 +30,7 @@ namespace Tennis
         {
             if (IsEqualScore())
             {
-                return GetEqualScore();
+                return GetEqualScore(player1Score);
             }
             else if (IsAdvantages())
             {
@@ -58,9 +58,33 @@ namespace Tennis
             return $"{GetSingleScore(player1Score)}-{GetSingleScore(player2Score)}";
         }
 
-        private string GetSingleScore(int scoreAsValue)
+
+        private static string GetAdvantageScore(int minusResult)
         {
-            string tempScore= string.Empty;
+            string score;
+            switch (minusResult)
+            {
+                case -1:
+                    score = "Advantage player2";
+                    break;
+                case 1:
+                    score = "Advantage player1";
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    score = "Win for player1";
+                    break;
+                default:
+                    score = "Win for player2";
+                    break;
+            }
+            return score;
+        }
+
+        static private string GetSingleScore(int scoreAsValue)
+        {
+            string tempScore = string.Empty;
             switch (scoreAsValue)
             {
                 case 0:
@@ -80,29 +104,15 @@ namespace Tennis
             return tempScore;
         }
 
-        private static string GetAdvantageScore(int minusResult)
+        static private string GetEqualScore(int pScore)
         {
             string score;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
-            return score;
-        }
-
-        private string GetEqualScore()
-        {
-            string score;
-            switch (player1Score)
+            switch (pScore)
             {
                 case 0:
-                    score = "Love-All";
-                    break;
                 case 1:
-                    score = "Fifteen-All";
-                    break;
                 case 2:
-                    score = "Thirty-All";
+                    score = $"{GetSingleScore(pScore)}-All";
                     break;
                 default:
                     score = "Deuce";
