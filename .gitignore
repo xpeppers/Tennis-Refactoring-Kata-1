@@ -13,3 +13,4 @@ csharp/*.suo
 csharp/.vs
 .vs
 .phpunit.result.cache
+/c/out/build/x64-Debug
