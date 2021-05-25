@@ -26,20 +26,6 @@ namespace Tennis
                 throw new Exception("Player doesn't exist");
         }
 
-        private string GetEvenScore(int player1_score)
-        {
-            string score = player1_score switch
-            {
-                0 => "Love-All",
-                1 => "Fifteen-All",
-                2 => "Thirty-All",
-                _ => "Deuce",
-            };
-
-            return score;
-        }
-
-
         public string GetScore()
         {
             string score = "";
@@ -52,11 +38,7 @@ namespace Tennis
 
             if (player1_score >= 4 || player2_score >= 4)
             {
-                var minusResult = player1_score - player2_score;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                score = GetAdvantageScore();
             }
             else
             {
@@ -81,6 +63,38 @@ namespace Tennis
                     }
                 }
             }
+            return score;
+        }
+
+        private string GetEvenScore(int player1_score)
+        {
+            string score = player1_score switch
+            {
+                0 => "Love-All",
+                1 => "Fifteen-All",
+                2 => "Thirty-All",
+                _ => "Deuce",
+            };
+
+            return score;
+        }
+
+
+        private string GetAdvantageScore()
+        {
+            string score;
+            
+            var minusResult = player1_score - player2_score;
+            
+            if (minusResult == 1) 
+                score = "Advantage player1";
+            else if (minusResult == -1) 
+                score = "Advantage player2";
+            else if (minusResult >= 2) 
+                score = "Win for player1";
+            else 
+                score = "Win for player2";
+
             return score;
         }
     }
